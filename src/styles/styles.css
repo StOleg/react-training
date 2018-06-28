@@ -1,0 +1,31 @@
+#app {
+    width: 80%;
+    margin: 20px auto;
+}
+
+a.active {
+    color: orange;
+}
+
+.search-input {
+    width: 60%;
+    margin-right: 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    padding: 5px;
+    float: left;
+}
+.btn {
+    padding: 6px 65px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+    vertical-align: middle;
+    color: #fff;
+    background-color: #333;
+    width: 20%;
+}
+
+.btn:hover {
+    background: #444
+}
