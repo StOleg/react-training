@@ -3,13 +3,16 @@
     margin: 20px auto;
 }
 
+a {
+    color: #333;
+}
+
 a.active {
-    color: orange;
+    color: #fa5;
 }
 
 .search-input {
-    width: 60%;
-    margin-right: 10px;
+    width: 75%;
     font-size: 14px;
     margin-top: 20px;
     padding: 5px;
@@ -24,8 +27,67 @@ a.active {
     color: #fff;
     background-color: #333;
     width: 20%;
+    float: right;
 }
 
 .btn:hover {
-    background: #444
+    background: #444;
+}
+
+.home-page, .about-page {
+    background: #F7F7F9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #efefef;
+    overflow-y: scroll;
+    margin-top: 20px;
+}
+
+.search-heading, .about-heading {
+    color: #333;
+    font-size: 40px;
+}
+
+.search-result-item {
+    float: left;
+    width: 170px;
+    height: 220px;
+    padding: 12px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.spinner-container {
+    z-index: 999999999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #444;
+    opacity: 0.6;}
+
+.spinner {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #222;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    left: 45%;
+    top: 45%;
+    position: absolute;
+    opacity: 1;
+}
+  
+/* Safari */
+@-webkit-keyframes spin {
+    0% {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+  
+@keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
 }

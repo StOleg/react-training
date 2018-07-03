@@ -2,8 +2,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-
 import * as searchActions from '../../actions/searchActions';
+import Spinner from '../common/Spinner';
 
 class HomePage extends Component {
     constructor(props, context) {
@@ -26,13 +26,18 @@ class HomePage extends Component {
     }
 
     searchImageResult(image, index) {
-        return <div key={index}><a> <img src={image.display_sizes[0].uri} /> </a>{image.title}</div>;
+        return (
+            <div key={index} className="search-result-item">
+                <a><img src={image.display_sizes[0].uri} /></a>
+                <span>{image.title}</span>
+            </div>
+        );
     }
 
     render() {
         return (
-            <div>
-                <h1>Search for Images</h1>
+            <div className="home-page">
+                <h1 className="search-heading">Search for Images</h1>
                 <input
                     type="text"
                     onChange={this.onSearchTextChange}
@@ -43,8 +48,9 @@ class HomePage extends Component {
                     type="submit"
                     value="Search"
                     onClick={this.onSearchClick}
-                    className="btn"
+                    className="btn search-btn"
                 />
+                <Spinner isLoading={this.props.isLoading} />
                 {this.props.images.map(this.searchImageResult)}
             </div>
         );
@@ -53,12 +59,14 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
     images: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     searchActions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
-        images: state.images
+        images: state.searchResult.images,
+        isLoading: state.searchResult.isLoading
     };
 }
 

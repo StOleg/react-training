@@ -2,7 +2,8 @@ import request from 'superagent';
 import * as types from './actionTypes';
 
 const searchImagesByTextApiCall = searchText => {
-  const queryParam = `fields=id,title,thumb,referral_destinations&phrase=${searchText}&sort_order=best`;
+  const searchTextParam = searchText ? `&phrase=${searchText}` : '';
+  const queryParam = `fields=id,title,thumb,referral_destinations${searchTextParam}&sort_order=best`;
   return request
     .get('https://api.gettyimages.com/v3/search/images')
     .query(queryParam)
@@ -11,12 +12,13 @@ const searchImagesByTextApiCall = searchText => {
 };
 
 const searchImagesByTextSuccess = (images) => ({
-  type: types.SEARCH_IMAGE_SUCCESS,
+  type: types.GET_SEARCH_SUCCESS,
   images: images
 });
 
 export function searchImagesByText(searchText) {
   return function(dispatch) {
+    dispatch({type: types.GET_SEARCH_REQUEST});
     searchImagesByTextApiCall(searchText).then(function(resp) {
       const data = JSON.parse(resp.text);
       dispatch(searchImagesByTextSuccess(data.images));

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import images from './courseReducer';
+import searchResult from './searchReducer';
 
 const rootReducer = combineReducers({
-    images
+    searchResult
 });
 
 export default rootReducer;
