@@ -3,38 +3,11 @@
     margin: 20px auto;
 }
 
-a {
-    color: #333;
+.btn-search {
+    margin-left: 5px;
 }
 
-a.active {
-    color: #fa5;
-}
-
-.search-input {
-    width: 75%;
-    font-size: 14px;
-    margin-top: 20px;
-    padding: 5px;
-    float: left;
-}
-.btn {
-    padding: 6px 65px;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    font-size: 14px;
-    vertical-align: middle;
-    color: #fff;
-    background-color: #333;
-    width: 20%;
-    float: right;
-}
-
-.btn:hover {
-    background: #444;
-}
-
-.home-page, .about-page {
+.search-page, .about-page {
     background: #F7F7F9;
     padding: 10px;
     border-radius: 5px;
@@ -55,11 +28,41 @@ a.active {
     padding: 12px;
     margin: 5px;
     font-size: 14px;
+    overflow: hidden;
 }
 
+.search-result-item-title {
+    float: left;
+}
+
+.pagination.justify-content-center {
+    clear: both;
+}
+
+.pagination .page-link {
+    color: #343a40;
+    background-color: #e6e3e3;
+}
+
+.pagination .page-link:hover {
+    background-color: #343a40;
+    color: #c3c5c7;
+}
+
+.pagination .page-item .count, .pagination .page-item .count:hover {
+    color: #fff;
+    background-color: #343a40;
+}
+
+.pagination .page-link:disabled, .pagination .page-link:hover:disabled {
+    color: #333;
+    background-color: #a5a4a4;
+}
+
+/*** SPINNER ***/
 .spinner-container {
     z-index: 999999999;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;

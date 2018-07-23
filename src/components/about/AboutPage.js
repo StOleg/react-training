@@ -1,7 +1,7 @@
 import React from 'react';
 
 class AboutPage extends React.Component {
-    render () {
+    render() {
         return (
             <div className="about-page">
                 <h1 className="about-heading">About</h1>
