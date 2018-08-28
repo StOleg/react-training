@@ -42,13 +42,22 @@ export default function searchReducer(state = InitialState, action) {
                 return state;
             }
         }
-        case types.RESET_PAGE:
+        case types.RESET_CURRENT_PAGE:
             return Object.assign({}, state, {
                 currentPage: 1
             });
+        case types.RESET_PAGE:
+            return Object.assign({}, state, {
+                images: [],
+                searchQuery: '',
+                currentPage: 1,
+                totalPages: 1
+            });
         case types.ASSIGN_SEARCH_QUERY:
             return Object.assign({}, state, {
-                searchQuery: action.query
+                searchQuery: action.searchText,
+                currentPage: action.currentPage,
+                totalPages: action.totalPages
             });
         default:
             return state;

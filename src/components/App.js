@@ -3,13 +3,12 @@ import Header from './common/Header';
 import SearchPage from '../containers/SearchPage';
 import AboutPage from './about/AboutPage';
 import { Router, Route } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import history from '../history/history';
 
-const browserHistory = createBrowserHistory();
 class App extends React.Component {
     render() {
         return (
-            <Router history={browserHistory}>
+            <Router history={history}>
                 <div>
                     <Header />
                     <Route exact path="/" component={SearchPage} />

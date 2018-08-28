@@ -1,5 +1,6 @@
 import request from 'superagent';
 import * as types from './actionTypes';
+import history from '../history/history';
 
 const searchImagesByTextApiCall = (searchText, page, pageSize) => {
     const searchTextParam = searchText ? `&phrase=${searchText}` : '';
@@ -19,13 +20,17 @@ export const decrementPage = () => ({
     type: types.DECREMENT_PAGE
 });
 
+export const resetCurrentPage = () => ({
+    type: types.RESET_CURRENT_PAGE
+});
+
 export const resetPage = () => ({
     type: types.RESET_PAGE
 });
 
-export const assignSearchQeury = (query) => ({
+export const assignSearchQeury = (searchText, currentPage, totalPages) => ({
     type: types.ASSIGN_SEARCH_QUERY,
-    query
+    searchText, currentPage, totalPages
 });
 
 export const searchImagesByTextSuccess = (payload) => ({
@@ -39,6 +44,12 @@ function searchImages(searchText, page, pageSize) {
         searchImagesByTextApiCall(searchText, page, pageSize).then(function (resp) {
             const data = JSON.parse(resp.text);
             dispatch(searchImagesByTextSuccess(data));
+            history.push({
+                pathname: "",
+                search: `searchText=${searchText}&currentPage=${page}&totalPages=${Math.ceil(data.result_count / pageSize)}`
+            });
+        }).catch(error => {
+            console.log(error);
         });
     };
 }

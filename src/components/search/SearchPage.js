@@ -2,22 +2,51 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Spinner from '../common/Spinner';
 import Pagination from '../common/Pagination';
+import queryString from 'query-string';
 
 class SearchPage extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            searchText: ''
+            searchTextInput: ''
         };
         this.searchInput = React.createRef();
-        this.onSearchClick = this.onSearchClick.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleUrlParams = this.handleUrlParams.bind(this);
     }
 
-    onSearchClick() {
-        const searchText = this.searchInput.current.value;
-        this.props.searchActions.assignSearchQeury(searchText);
+    componentDidMount() {
+        this.handleUrlParams();
+    }
+
+    componentWillUnmount() {
         this.props.searchActions.resetPage();
+    }
+
+    handleUrlParams() {
+        const params = queryString.parse(location.search);
+        const searchText = params.searchText;
+        const currentPage = Math.ceil(params.currentPage);
+        const totalPages = Math.ceil(params.totalPages);
+        if (searchText && currentPage && totalPages) {
+            this.props.searchActions.assignSearchQeury(searchText, currentPage, totalPages);
+            this.props.searchActions.LoadImages();
+        }
+    }
+
+    handleSearch() {
+        const searchTextInput = this.searchInput.current.value;
+        this.props.searchActions.assignSearchQeury(searchTextInput, this.props.currentPage, this.props.totalPages);
+        this.props.searchActions.resetCurrentPage();
         this.props.searchActions.LoadImages();
+    }
+
+    handleKeyPress(event) {
+        if (event.key == 'Enter') {
+            event.preventDefault();
+            this.handleSearch();
+        }
     }
 
     searchImageResult(image, index) {
@@ -37,12 +66,13 @@ class SearchPage extends React.Component {
                     <input
                         type="text"
                         ref={this.searchInput}
+                        onKeyPress={this.handleKeyPress}
                         className="form-control"
                     />
                     <input
                         type="button"
                         value="Search"
-                        onClick={this.onSearchClick}
+                        onClick={this.handleSearch}
                         className="btn btn-dark btn-search"
                     />
                 </div>
